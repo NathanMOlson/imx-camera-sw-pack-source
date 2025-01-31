@@ -1,0 +1,104 @@
+diff --git a/imx/run.sh b/imx/run.sh
+index a9506d0..0a9ffcb 100755
+--- a/imx/run.sh
++++ b/imx/run.sh
+@@ -33,6 +33,7 @@ USAGE+="\tos08a20_4k              - single os08a20 camera on MIPI-CSI1, 3840x216
+ USAGE+="\tos08a20_1080p30hdr      - single os08a20 camera on MIPI-CSI1, 1920x1080, 30 fps, HDR configuration\n"
+ USAGE+="\tdual_os08a20_1080p30hdr - dual os08a20 cameras on MIPI-CSI1/2, 1920x1080, 30 fps, HDR configuration\n"
+ USAGE+="\tos08a20_4khdr           - single os08a20 camera on MIPI-CSI1, 3840x2160, 15 fps, HDR configuration\n"
++USAGE+="\timx258_12mp30           - single imx258 camera on MIPI-CSI1, 1080,1080p60,4K, 4096x3072 30 fps, Linear configuration\n"
+ 
+ # parse command line arguments
+ while [ "$1" != "" ]; do
+@@ -87,6 +88,21 @@ write_default_mode_files () {
+ 	echo "[mode.3]" >> DAA3840_MODES.txt
+ 	echo "xml = \"DAA3840_30MC_1080P-hdr.xml\"" >> DAA3840_MODES.txt
+ 	echo "dwe = \"dewarp_config/daA3840_30mc_1080P.json\"" >> DAA3840_MODES.txt
++
++	# IMX258 modes file
++	echo -n "" > IMX258_MODES.txt
++	echo "[mode.0]" >> IMX258_MODES.txt
++	echo "xml = \"IMX258_1080P.xml\"" >> IMX258_MODES.txt
++	echo "dwe = \"dewarp_config/sensor_dwe_bypass_1080P_config.json\"" >> IMX258_MODES.txt
++	echo "[mode.1]" >> IMX258_MODES.txt
++	echo "xml = \"IMX258_1080P60.xml\"" >> IMX258_MODES.txt
++	echo "dwe = \"dewarp_config/sensor_dwe_bypass_1080P_config.json\"" >> IMX258_MODES.txt
++	echo "[mode.2]" >> IMX258_MODES.txt
++	echo "xml = \"IMX258_4K.xml\"" >> IMX258_MODES.txt
++	echo "dwe = \"dewarp_config/sensor_dwe_bypass_4K_config.json\"" >> IMX258_MODES.txt
++	echo "[mode.3]" >> IMX258_MODES.txt
++	echo "xml = \"IMX258_12MP.xml\"" >> IMX258_MODES.txt
++	echo "dwe = \"dewarp_config/sensor_dwe_bypass_12MP_config.json\"" >> IMX258_MODES.txt
+ }
+ 
+ # write the sensonr config file
+@@ -308,6 +324,15 @@ case "$ISP_CONFIG" in
+                          write_sensor_cfg_file "Sensor0_Entry.cfg" $CAM_NAME $DRV_FILE $MODE_FILE $MODE
+                          write_sensor_cfg_file "Sensor1_Entry.cfg" $CAM_NAME $DRV_FILE $MODE_FILE $MODE
+                          ;;
++			imx258_12mp30 )
++				MODULES=("imx258" "${MODULES[@]}")
++						 RUN_OPTION="CAMERA0"
++						 CAM_NAME="imx258"
++						 DRV_FILE="imx258.drv"
++						 MODE_FILE="IMX258_MODES.txt"
++						 MODE="0"
++						 write_sensor_cfg_file "Sensor0_Entry.cfg" $CAM_NAME $DRV_FILE $MODE_FILE $MODE
++						 ;;
+ 		 *)
+ 			echo "ISP configuration \"$ISP_CONFIG\" unsupported."
+ 			echo -e "$USAGE" >&2
+diff --git a/imx/start_isp.sh b/imx/start_isp.sh
+index d544b4c..fe87cc9 100755
+--- a/imx/start_isp.sh
++++ b/imx/start_isp.sh
+@@ -10,7 +10,7 @@ RUNTIME_DIR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+ NR_DEVICE_TREE_BASLER=$(grep basler-camera-vvcam `find /sys/firmware/devicetree/base/soc@0/ -name compatible | grep i2c` -l | wc -l 2> /dev/null)
+ NR_DEVICE_TREE_OV5640=$(grep ov5640 `find /sys/firmware/devicetree/base/soc@0/ -name compatible | grep i2c` -l | wc -l 2> /dev/null)
+ NR_DEVICE_TREE_OS08A20=$(grep os08a20 `find /sys/firmware/devicetree/base/soc@0/ -name compatible | grep i2c` -l | wc -l 2> /dev/null)
+-
++NR_DEVICE_TREE_IMX258=$(grep imx258 `find /sys/firmware/devicetree/base/soc@0/ -name compatible | grep i2c` -l | wc -l 2> /dev/null)
+ 
+ # check if the basler device has been enabled in the device tree
+ if [ $NR_DEVICE_TREE_BASLER -eq 1 ]; then
+@@ -69,6 +69,12 @@ elif [ $NR_DEVICE_TREE_OS08A20 -eq 2 ]; then
+ 	# Available configurations: dual_Os08a20_1080p60, dual_Os08a20_1080p30hdr
+ 	exec ./run.sh -c dual_os08a20_1080p60 -lm
+ 
++elif [ $NR_DEVICE_TREE_IMX258 -eq 1 ]; then
++
++	echo "Starting isp_media_server for Single imx258"
++	cd $RUNTIME_DIR
++	exec ./run.sh -c imx258_12mp30 -lm
++
+ else
+ 	# no device tree found exit with code no device or address
+ 	echo "No device tree found for Basler camera or os08a20, check dtb file!" >&2
+diff --git a/units/isi/CMakeLists.txt b/units/isi/CMakeLists.txt
+index a91699b..2186379 100755
+--- a/units/isi/CMakeLists.txt
++++ b/units/isi/CMakeLists.txt
+@@ -69,6 +69,7 @@ endif( DEFINED APPSHELL_TOP_COMPILE)
+ add_subdirectory( drv/OV2775 )
+ add_subdirectory( drv/OS08a20 )
+ add_subdirectory( drv/AR1335 )
++add_subdirectory( drv/IMX258 )
+ #add_subdirectory( drv/OV5630 )
+ ###add_subdirectory( drv/OV8810 )
+ #add_subdirectory( drv/OV14825 )
+@@ -87,6 +88,7 @@ include_directories(
+     )
+ 
+ add_subdirectory( drv/OS08a20 )
++add_subdirectory ( drv/IMX258 )
+ 
+ add_custom_target(copy_shell_libs_${module} ALL
+        COMMENT "##Copy isi drv cfg to shell libs"
+@@ -94,6 +96,7 @@ add_custom_target(copy_shell_libs_${module} ALL
+        COMMAND ${CMAKE_COMMAND} -E copy ${UNITS_TOP_DIRECTORY}/isi/drv/*.cfg  ${LIB_ROOT}/${CMAKE_BUILD_TYPE}/bin/
+ )
+ add_dependencies(copy_shell_libs_${module} drv/OS08a20)
++add_dependencies(copy_shell_libs_${module} drv/IMX258)
+ 
+ endif (GENERATE_PARTITION_BUILD)
+ 
