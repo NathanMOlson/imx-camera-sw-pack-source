@@ -1,0 +1,73 @@
+NXP Software Content Register
+
+Release Name:             imx-camera-sw-pack-source
+Date Created:             January-2025
+Package License:          GPL-2.0-or-later
+License File:             ./licenses/GPL-2.0-or-later.txt
+Version:                  LF6.12.20_2.0.0
+Release location:         https://github.com/nxp-imx-support/imx-camera-sw-pack-source
+Description:              i.MX Camera Software Pack source files to enable camera modules supporting ISP function on i.MX95
+Origin:                   NXP (GPL-2.0-or-later, MIT, LGPL-1.0-or-later, CC-1.0)
+
+--------------------------------------------
+BSP Packages
+--------------------------------------------
+
+Package Name:             imx95-camera-sw-pack-imx258
+Date Created:             July-2025
+Package License:          GPL-2.0-or-later
+License File:             ../licenses/GPL-2.0-or-later.txt
+Version:                  LF6.12.20_2.0.0
+Release location:         https://github.com/nxp-imx-support/imx-camera-sw-pack-source/imx95-camera-sw-pack-imx258
+Type of Content:          Source, Binary
+Description:              Enable imx258 camera module to support ISP function on i.MX 95 19x19 EVK
+Origin:                   NXP (GPL-2.0-or-later, MIT, LGPL-1.0-or-later, CC-1.0)
+
+Package Name:             imx8mp-camera-sw-pack-imx219
+Date Created:             July-2025
+Package License:          GPL-2.0-or-later
+License File:             ../licenses/GPL-2.0-or-later.txt
+Version:                  LF6.12.20_2.0.0
+Release location:         https://github.com/nxp-imx-support/imx-camera-sw-pack-source/imx95-camera-sw-pack-imx219
+Type of Content:          Source, Binary
+Description:              Enable imx219 camera modules to support ISP function on i.MX 95 19x19 EVK
+Origin:                   NXP (GPL-2.0-or-later, MIT)
+
+Package Name:             imx95-camera-sw-pack-imx477
+Date Created:             July-2025
+Package License:          GPL-2.0-or-later
+License File:             ../licenses/GPL-2.0-or-later.txt
+Version:                  LF6.12.20_2.0.0
+Release location:         https://github.com/nxp-imx-support/imx-camera-sw-pack-source/imx95-camera-sw-pack-imx477
+Type of Content:          Source, Binary
+Description:              Enable imx477 camera module to support ISP function on i.MX 95 19x19 EVK
+Origin:                   NXP (GPL-2.0-or-later, MIT)
+
+Patches for:              linux-imx.git
+Version:                  GPL-2.0-or-later.txt
+Source Location:          https://github.com/nxp-imx/linux-imx -b lf-6.12.20-2.0.0
+Outgoing License:         GPL-2.0 with Linux-syscall-note
+License File:             linux-imx/COPYING
+Package Category:         BSP
+Type of Content:          Source
+Description and comments: The Linux kernel with i.MX-specific drivers
+Origin:                   NXP (GPL-2.0-or-later)
+                          kernel.org (GPL-2.0-or-later) - https://www.kernel.org/
+
+--------------------------------------------
+Graphics Packages
+--------------------------------------------
+Patches for:                neo-ipa-uguzzi.git
+Outgoing License:           LGPL-2.1-or-later
+License File:               ../licenses/LGPL-2.1-or-later.txt
+Type of content:            source code, binary libraries
+Description and comments:   An Image Processing Algorithms library for libcamera, for i.MX95 ISP, 
+                            based on proprietary MM Solutions EAD uGuzzi 3A library
+Origin:                     NXP (LGPL-2.1-or-later)
+
+Patches for:                libcamera.git
+Outgoing License:           LGPL-2.1-or-later
+License File:               ../licenses/LGPL-2.1-or-later.txt
+Type of content:            source code
+Description and comments:   A Linux camera management framework
+Origin:                     NXP (LGPL-2.1-or-later, CC-1.0)

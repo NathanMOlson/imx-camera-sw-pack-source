@@ -1,0 +1,122 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "creationInfo": {
+    "created": "2025-12-17T10:30:54Z",
+    "creators": [
+      "Organization: NXP"
+    ],
+    "licenseListVersion": "3.26"
+  },
+  "name": "imx-camera-sw-pack-source-LF6.12.20_2.0.0",
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://nxp.com/spdx/12214cd0-b510-4f5b-9167-ad632c024efd",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-package-12214cd0-b510-4f5b-9167-ad632c024efd",
+      "name": "imx-camera-sw-pack-source",
+      "versionInfo": "LF6.12.20_2.0.0",
+      "licenseConcluded": "(GPL-2.0-only)",
+      "licenseDeclared": "(GPL-2.0-only)",
+      "downloadLocation": "https://github.com/nxp-imx-support/imx-camera-sw-pack-source",
+      "originator": "Organization: NXP",
+      "supplier": "NOASSERTION",
+      "externalRefs": [],
+      "filesAnalyzed": false
+    },
+    {
+      "SPDXID": "SPDXRef-package-e36ddbac-574d-4767-ab5b-3b25ed1285f6",
+      "name": "Linux Kernel",
+      "versionInfo": "1.20220118",
+      "licenseConcluded": "GPL-2.0-or-later",
+      "licenseDeclared": "GPL-2.0-or-later",
+      "homepage": "http://git.kernel.org/pub/scm/linux/kernel/git/longterm/linux-2.6.34.y.git",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: raspberrypi",
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceLocator": "635673f4-37ec-476b-bd66-5fae2b17b43c",
+          "referenceType": "BlackDuck-ComponentOrigin"
+        },
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:github/raspberrypi/linux@1.20220118",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false
+    },
+    {
+      "SPDXID": "SPDXRef-package-ca71cc79-b0eb-4fd2-a5fc-a13b69d72c2d",
+      "name": "linux-xlnx",
+      "versionInfo": "zynqmp-dt-for-6.14",
+      "licenseConcluded": "GPL-2.0-or-later",
+      "licenseDeclared": "GPL-2.0-or-later",
+      "homepage": "https://www.yoctoproject.org/",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: xilinx",
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceLocator": "a228e66d-6821-4574-9283-15c99405063c",
+          "referenceType": "BlackDuck-ComponentOrigin"
+        },
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:github/Xilinx/linux-xlnx@zynqmp-dt-for-6.14",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false
+    },
+    {
+      "SPDXID": "SPDXRef-package-0a2a972f-143a-46c2-a545-5cbbdd38f3dc",
+      "name": "linux-xlnx",
+      "versionInfo": "zynqmp-soc-for-6.13",
+      "licenseConcluded": "GPL-2.0-or-later",
+      "licenseDeclared": "GPL-2.0-or-later",
+      "homepage": "https://www.yoctoproject.org/",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: xilinx",
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "OTHER",
+          "referenceLocator": "884cb86a-5f86-47df-9efb-e7e1294b7a80",
+          "referenceType": "BlackDuck-ComponentOrigin"
+        },
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:github/Xilinx/linux-xlnx@zynqmp-soc-for-6.13",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-package-12214cd0-b510-4f5b-9167-ad632c024efd"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-12214cd0-b510-4f5b-9167-ad632c024efd",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-0a2a972f-143a-46c2-a545-5cbbdd38f3dc"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-12214cd0-b510-4f5b-9167-ad632c024efd",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-ca71cc79-b0eb-4fd2-a5fc-a13b69d72c2d"
+    },
+    {
+      "spdxElementId": "SPDXRef-package-12214cd0-b510-4f5b-9167-ad632c024efd",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-package-e36ddbac-574d-4767-ab5b-3b25ed1285f6"
+    }
+  ]
+}

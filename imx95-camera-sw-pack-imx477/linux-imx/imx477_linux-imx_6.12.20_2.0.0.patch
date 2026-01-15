@@ -1,0 +1,66 @@
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index a11846b86fb2..435c5f5dfacf 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -754,6 +754,12 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-jtag.dtb
+ imx95-19x19-evk-neoisp-dtbs := imx95-19x19-evk.dtb imx95-19x19-evk-neoisp.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-neoisp.dtb
+ 
++imx95-19x19-evk-isp-imx477-adv7535-dtbs := imx95-19x19-evk.dtb \
++										imx95-19x19-evk-neoisp.dtbo \
++										imx95-19x19-evk-adv7535.dtbo \
++										imx95-19x19-evk-imx477.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-isp-imx477-adv7535.dtb
++
+ imx95-19x19-evk-os08a20-isp-it6263-lvds0-dtbs := imx95-19x19-evk-neoisp.dtb imx95-19x19-evk-os08a20.dtbo \
+                         imx95-19x19-evk-it6263-lvds0.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-os08a20-isp-it6263-lvds0.dtb
+diff --git a/arch/arm64/configs/imx_v8_defconfig b/arch/arm64/configs/imx_v8_defconfig
+index 31eabe2708ea..3ea4b8319e30 100644
+--- a/arch/arm64/configs/imx_v8_defconfig
++++ b/arch/arm64/configs/imx_v8_defconfig
+@@ -619,6 +619,7 @@ CONFIG_VIDEO_MHDP_HDMIRX=y
+ CONFIG_VIDEO_MHDP_HDMIRX_CEC=y
+ CONFIG_VIDEO_HANTRO=m
+ CONFIG_VIDEO_IMX219=m
++CONFIG_VIDEO_IMX477=m
+ CONFIG_VIDEO_OV5640=y
+ CONFIG_VIDEO_OV5645=m
+ CONFIG_VIDEO_AP1302=m
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 3ca296eb056c..5c7aa6c8d62b 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -264,6 +264,20 @@ config VIDEO_IMX415
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called imx415.
+ 
++config VIDEO_IMX477
++    	tristate "Sony IMX477 sensor support"
++    	depends on OF_GPIO
++	select MEDIA_CONTROLLER
++	select VIDEO_V4L2_I2C
++    	select VIDEO_V4L2_SUBDEV_API
++    	select V4L2_FWNODE
++	help
++	  This is a Video4Linux2 sensor driver for the Sony
++	  IMX477 camera.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called imx477.
++
+ config VIDEO_MAX9271_LIB
+ 	tristate
+ 
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index bb720ac476ca..31a48a26843f 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -59,6 +59,7 @@ obj-$(CONFIG_VIDEO_IMX335) += imx335.o
+ obj-$(CONFIG_VIDEO_IMX355) += imx355.o
+ obj-$(CONFIG_VIDEO_IMX412) += imx412.o
+ obj-$(CONFIG_VIDEO_IMX415) += imx415.o
++obj-$(CONFIG_VIDEO_IMX477) += imx477.o
+ obj-$(CONFIG_VIDEO_IR_I2C) += ir-kbd-i2c.o
+ obj-$(CONFIG_VIDEO_ISL7998X) += isl7998x.o
+ obj-$(CONFIG_VIDEO_KS0127) += ks0127.o

@@ -1,0 +1,16 @@
+# Ignore any specific file/directory
+licenses/
+
+##### Followings are to make cody processing light weight
+# Ignore build artifacts to prevent license contamination from compiled outputs
+
+# Ignore temporary and swap files
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# Ignore IDE and git metadata
+.vscode/
+.git/
