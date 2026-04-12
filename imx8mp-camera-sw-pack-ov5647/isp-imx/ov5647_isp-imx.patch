@@ -20,7 +20,7 @@ index a9506d0..c1a36b6 100755
 +	echo -n "" > OV5647_MODES.txt
 +	echo "[mode.0]" >> OV5647_MODES.txt
 +	echo "xml = \"OV5647_8M_02_1080p_linear.xml\"" >> OV5647_MODES.txt
-+	echo "dwe = \"dewarp_config/sensor_dwe_bypass_1080P_config.json\"" >> OV5647_MODES.txt	
++	echo "dwe = \"dewarp_config/sensor_dwe_bypass_1080P_config.json\"" >> OV5647_MODES.txt
  }
  
  # write the sensonr config file
@@ -45,7 +45,7 @@ index a9506d0..c1a36b6 100755
 +                         MODE_FILE="OV5647_MODES.txt"
 +                         MODE="0"
 +                         write_sensor_cfg_file "Sensor0_Entry.cfg" $CAM_NAME $DRV_FILE $MODE_FILE $MODE
-+                         ;;		
++                         ;;
  		 *)
  			echo "ISP configuration \"$ISP_CONFIG\" unsupported."
  			echo -e "$USAGE" >&2
@@ -91,11 +91,11 @@ index a91699b..e1da5f3 100755
  #add_subdirectory( drv/OV5630 )
  ###add_subdirectory( drv/OV8810 )
  #add_subdirectory( drv/OV14825 )
-@@ -77,6 +78,7 @@ #add_subdirectory( drv/OV14825 )
-#add_subdirectory( drv/OV5640 )
-else (GENERATE_PARTITION_BUILD)
-add_subdirectory( drv/OS08a20 )
+@@ -77,5 +78,6 @@ #add_subdirectory( drv/OV14825 )
+ #add_subdirectory( drv/OV5640 )
+ else (GENERATE_PARTITION_BUILD)
+ add_subdirectory( drv/OS08a20 )
 +add_subdirectory( drv/OV5647 )
-endif (GENERATE_PARTITION_BUILD)
-
-
+ endif (GENERATE_PARTITION_BUILD)
+ 
+ 
