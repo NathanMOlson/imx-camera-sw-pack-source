@@ -83,7 +83,7 @@ diff --git a/units/isi/CMakeLists.txt b/units/isi/CMakeLists.txt
 index a91699b..e1da5f3 100755
 --- a/units/isi/CMakeLists.txt
 +++ b/units/isi/CMakeLists.txt
-@@ -69,6 +69,7 @@ endif( DEFINED APPSHELL_TOP_COMPILE)
+@@ -71,6 +71,7 @@ #add_subdirectory( drv/OV2710 )
  add_subdirectory( drv/OV2775 )
  add_subdirectory( drv/OS08a20 )
  add_subdirectory( drv/AR1335 )
@@ -91,19 +91,11 @@ index a91699b..e1da5f3 100755
  #add_subdirectory( drv/OV5630 )
  ###add_subdirectory( drv/OV8810 )
  #add_subdirectory( drv/OV14825 )
-@@ -87,6 +88,7 @@ include_directories(
-     )
- 
- add_subdirectory( drv/OS08a20 )
+@@ -77,6 +78,7 @@ #add_subdirectory( drv/OV14825 )
+#add_subdirectory( drv/OV5640 )
+else (GENERATE_PARTITION_BUILD)
+add_subdirectory( drv/OS08a20 )
 +add_subdirectory( drv/OV5647 )
- 
- add_custom_target(copy_shell_libs_${module} ALL
-        COMMENT "##Copy isi drv cfg to shell libs"
-@@ -94,6 +96,7 @@ add_custom_target(copy_shell_libs_${module} ALL
-        COMMAND ${CMAKE_COMMAND} -E copy ${UNITS_TOP_DIRECTORY}/isi/drv/*.cfg  ${LIB_ROOT}/${CMAKE_BUILD_TYPE}/bin/
- )
- add_dependencies(copy_shell_libs_${module} drv/OS08a20)
-+add_dependencies(copy_shell_libs_${module} drv/OV5647)
- 
- endif (GENERATE_PARTITION_BUILD)
- 
+endif (GENERATE_PARTITION_BUILD)
+
+
