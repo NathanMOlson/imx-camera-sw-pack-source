@@ -32,7 +32,7 @@
 #define OV5647_VOLTAGE_DIGITAL_IO		1800000
 
 #define OV5647_XCLK_MIN 6000000
-#define OV5647_XCLK_MAX 24000000
+#define OV5647_XCLK_MAX 25000000
 
 #define OV5647_SENS_PAD_SOURCE	0
 #define OV5647_SENS_PADS_NUM	1
@@ -819,7 +819,7 @@ static int ov5647_probe(struct i2c_client *client,
 	}
 
 	sensor->clk_freq = clk_get_rate(sensor->sensor_clk);
-	if (sensor->clk_freq != 24000000) {
+	if (sensor->clk_freq != 25000000) {
 		dev_err(dev, "clk frequency not supported: %d Hz\n",
 			sensor->clk_freq);
 		return -EINVAL;
